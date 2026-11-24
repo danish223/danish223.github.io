@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Danish Khan · Backend Engineer</title>
+  <meta name="description" content="Danish Khan, backend engineer (Java, Spring Boot) at Mercurial Minds working on Tamasha, and co-founder of Scorka. Experience, projects and contact.">
+  <link rel="canonical" href="https://danish223.github.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://danish223.github.io/">
+  <meta property="og:title" content="Danish Khan · Backend Engineer">
+  <meta property="og:description" content="Backend engineer (Java, Spring Boot) at Mercurial Minds, working on Tamasha. Co-founder of Scorka, a live cricket scoring app.">
+  <meta property="og:image" content="https://danish223.github.io/images/scorka.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307090f'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial' font-weight='700' font-size='30' fill='%232dd4bf'%3EDK%3C/text%3E%3C/svg%3E">
+  <meta name="theme-color" content="#07090f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="progress"></div>
+  <div id="app"></div>
+  <script src="site.js"></script>
+  <script>
+    const { esc, has, ext, icon, tags, pts, backdrop, typeClass, buttons, nav, footer } = Site;
+    let n = 0;
+    const head = (title) => `<div class="sec-head reveal"><div class="sec-num mono">0${++n} //</div><h2>${esc(title)}</h2></div>`;
+    const projectUrl = (p) => `project.html?p=${encodeURIComponent(p.id)}`;
+
+    function projectCard(p, i) {
+      const big = !!p.featured;
+      return `<a class="card pcard${big ? " big" : ""} reveal" style="--d:${(i % 2) * .1}s" href="${projectUrl(p)}">
+        <div class="thumb">${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">` : `<div class="mark grad-text">${esc(p.name)}</div>`}</div>
+        <div class="pbody">
+          ${p.type ? `<span class="ptype mono ${typeClass(p.type)}">${esc(p.type)}</span>` : ""}
+          <h3>${esc(p.name)}</h3>
+          ${p.tagline ? `<p class="tagline">${esc(p.tagline)}</p>` : ""}
+          ${p.role ? `<div class="role grad-text" style="margin-top:-6px">${esc(p.role)}</div>` : ""}
+          <div class="grow">${big ? `<p class="desc">${esc(p.description)}</p>` : ""}</div>
+          ${tags(p.tags)}
+          <span class="link-arrow">${p.sections ? "Read case study" : "View project"}${icon.arrow}</span>
+        </div>
+      </a>`;
+    }
+
+    function render(c) {
+      document.title = `${c.name} · ${c.title}`;
+      const first = (c.name || "").split(" ")[0];
+      const navItems = [has(c.experience) && ["#experience", "Experience"], has(c.projects) && ["#projects", "Projects"], has(c.skills) && ["#skills", "Skills"], ["#contact", "Contact"]].filter(Boolean);
+
+      const experience = has(c.experience) ? `<section id="experience"><div class="wrap">${head("Experience")}<div class="timeline">${c.experience.map((e, i) => {
+        const proj = (c.projects || []).find((p) => p.id === e.project);
+        return `<div class="tl-item reveal" style="--d:${i * .1}s"><div class="tl-dot"></div><div class="card">
+          <div class="row-head"><h3>${esc(e.company)}</h3><span class="period mono">${esc(e.period)}</span></div>
+          <div class="role grad-text">${esc(e.role)}</div>
+          <p class="desc">${esc(e.description)}</p>${pts(e.points)}${tags(e.tags)}
+          ${proj ? `<a class="link-arrow" href="${projectUrl(proj)}">See the ${esc(proj.name)} project${icon.arrow}</a>` : ""}
+        </div></div>`;
+      }).join("")}</div></div></section>` : "";
+
+      const projects = has(c.projects) ? `<section id="projects"><div class="wrap">${head("Projects")}<div class="projects">${c.projects.map(projectCard).join("")}</div></div></section>` : "";
+
+      const user = (c.github || "").split("/").filter(Boolean).pop();
+      const activity = c.githubActivity && user ? `<section id="activity"><div class="wrap">${head("GitHub activity")}
+        <a class="card gh-graph reveal" href="${esc(c.github)}" ${ext}><img src="https://ghchart.rshah.org/2dd4bf/${esc(user)}" alt="GitHub contributions of ${esc(user)}" loading="lazy" onerror="this.closest('section').remove()"></a></div></section>` : "";
+
+      const skills = has(c.skills) ? `<section id="skills"><div class="wrap">${head("Skills")}<div class="skills">${c.skills.map((s, i) => `
+        <div class="card reveal" style="--d:${i * .1}s"><h4><i></i>${esc(s.group)}</h4><div class="chips">${(s.items || []).map((x) => `<span class="chip">${esc(x)}</span>`).join("")}</div></div>`).join("")}</div>
+        ${has(c.interests) ? `<div class="interests reveal"><span class="label" style="width:100%;margin:10px 0 0">Interested in</span>${c.interests.map((x) => `<span class="interest">${esc(x)}</span>`).join("")}</div>` : ""}
+        </div></section>` : "";
+
+      const edu = has(c.education) && `<div class="card reveal"><span class="label mono">Education</span>${c.education.map((e) => `
+        <div class="edu-item"><strong>${esc(e.degree)}</strong><span>${esc(e.school)}</span>${e.period ? `<div class="mono" style="color:var(--faint);font-size:13px;margin-top:6px">${esc(e.period)}</div>` : ""}</div>`).join("")}</div>`;
+      const certs = has(c.certifications) && `<div class="card reveal" style="--d:.1s"><span class="label mono">Certifications</span>${c.certifications.map((x) => `
+        <div class="edu-item"><strong>${x.link ? `<a href="${esc(x.link)}" ${ext}>${esc(x.name)} ↗</a>` : esc(x.name)}</strong><span>${esc(x.issuer)}${x.year ? " · " + esc(x.year) : ""}</span></div>`).join("")}</div>`;
+      const background = (edu || certs) ? `<section id="background"><div class="wrap">${head("Background")}<div class="${edu && certs ? "two" : ""}">${edu || ""}${certs || ""}</div></div></section>` : "";
+
+      document.getElementById("app").innerHTML = `
+        ${nav(c, navItems)}
+        <header class="hero" id="top">
+          ${backdrop()}
+          <div class="wrap hero-inner">
+            <div>
+              ${c.location ? `<div class="badge reveal"><span class="pulse"></span>${esc(c.location)}</div>` : ""}
+              <p class="hello reveal" style="--d:.1s">Hi, I'm</p>
+              <h1 class="reveal" style="--d:.18s">${esc(first)} <span class="grad-text">${esc((c.name || "").slice(first.length + 1))}</span></h1>
+              <div class="typed reveal mono" style="--d:.26s"><span id="typed"></span><span class="caret"></span></div>
+              <p class="summary reveal" style="--d:.34s">${esc(c.summary)}</p>
+              <div class="actions reveal" style="--d:.42s">${buttons(c)}</div>
+            </div>
+            <div class="terminal reveal" style="--d:.5s">
+              <div class="term-bar"><i></i><i></i><i></i><span class="mono">~/api — zsh</span></div>
+              <div class="term-body" id="term"></div>
+            </div>
+          </div>
+          <a href="#experience" class="scroll-hint" aria-label="Scroll down"></a>
+        </header>
+        ${experience}${projects}${activity}${skills}${background}
+        <section class="contact" id="contact"><div class="wrap">
+          <div class="sec-num mono reveal">0${++n} // Contact</div>
+          <h2 class="reveal" style="--d:.1s">Let's build <span class="grad-text">something</span>.</h2>
+          <p class="reveal" style="--d:.2s">Open to research collaborations, graduate study and interesting backend problems.</p>
+          <div class="actions reveal" style="--d:.3s">${buttons(c)}</div>
+        </div></section>
+        ${footer(c)}`;
+
+      startTyping(has(c.roles) ? c.roles : [c.title]);
+      startTerminal(c);
+    }
+
+    function startTyping(words) {
+      const el = document.getElementById("typed");
+      let w = 0, i = 0, del = false;
+      (function tick() {
+        const word = words[w];
+        i += del ? -1 : 1;
+        el.textContent = word.slice(0, i);
+        let wait = del ? 35 : 75;
+        if (!del && i === word.length) { del = true; wait = 1800; }
+        else if (del && i === 0) { del = false; w = (w + 1) % words.length; wait = 350; }
+        setTimeout(tick, wait);
+      })();
+    }
+
+    function startTerminal(c) {
+      const el = document.getElementById("term");
+      const stack = (c.skills?.[0]?.items || []).filter((s) => s.length <= 13).slice(0, 3).map((s) => `<span class="t-str">"${esc(s)}"</span>`).join(", ");
+      const job = c.experience?.[0];
+      const lines = [
+        `<span class="t-dim">$</span> curl api.dev/engineers/${esc((c.github || "").split("/").pop() || "me")}`,
+        `<span class="t-ok">HTTP/1.1 200 OK</span>  <span class="t-dim">· 38ms</span>`,
+        `{`,
+        `  <span class="t-key">"name"</span>: <span class="t-str">"${esc(c.name)}"</span>,`,
+        job ? `  <span class="t-key">"currentlyAt"</span>: <span class="t-str">"${esc(job.company)}"</span>,` : "",
+        `  <span class="t-key">"stack"</span>: [${stack}],`,
+        `  <span class="t-key">"projects"</span>: <span class="t-num">${(c.projects || []).length}</span>,`,
+        `  <span class="t-key">"n+1Queries"</span>: <span class="t-num">0</span>,`,
+        `  <span class="t-key">"status"</span>: <span class="t-str">"building"</span>`,
+        `}`,
+      ].filter(Boolean);
+      let li = 0;
+      function next() {
+        if (li >= lines.length) { setTimeout(() => { el.innerHTML = ""; li = 0; next(); }, 6000); return; }
+        const div = document.createElement("div");
+        div.innerHTML = lines[li];
+        if (li === 0) {
+          const full = div.innerHTML, plain = div.textContent; div.textContent = "";
+          el.appendChild(div);
+          let k = 0;
+          const t = setInterval(() => { k++; div.textContent = plain.slice(0, k); if (k >= plain.length) { clearInterval(t); div.innerHTML = full; li++; setTimeout(next, 450); } }, 32);
+          return;
+        }
+        el.appendChild(div); li++;
+        setTimeout(next, li === 2 ? 500 : 110);
+      }
+      setTimeout(next, 900);
+    }
+
+    Site.load(render);
+  </script>
+</body>
+</html>

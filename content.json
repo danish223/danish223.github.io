@@ -1,0 +1,271 @@
+{
+  "name": "Danish Khan",
+  "title": "Backend Engineer · Java & Spring Boot",
+  "roles": [
+    "Backend Engineer",
+    "Java & Spring Boot Developer",
+    "API Performance Optimiser",
+    "Microservices Builder"
+  ],
+  "location": "Rawalpindi, Pakistan",
+  "summary": "I build and optimise backend systems. At Mercurial Minds I work on Tamasha, a video streaming platform built as microservices, designing new APIs and making slow ones fast. Outside work I co-founded Scorka, a live cricket scoring app that I took from database design to production.",
+  "email": "danish99223@gmail.com",
+  "github": "https://github.com/danish223",
+  "linkedin": "",
+  "cv": "",
+  "githubActivity": true,
+  "interests": [
+    "Scalable backend systems",
+    "Distributed systems & microservices",
+    "Database performance"
+  ],
+  "experience": [
+    {
+      "company": "Mercurial Minds",
+      "role": "Backend Engineer (Java, Spring Boot)",
+      "period": "Jan 2025 – Present",
+      "description": "Backend engineer on Tamasha, a video streaming platform with shows, movies, live TV and live sports, built as a set of microservices.",
+      "points": [
+        "Design and build new APIs across the user, content and live streaming services.",
+        "Make slow APIs fast: profiling, fixing N+1 queries, indexing and query rewrites."
+      ],
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "Microservices",
+        "SQL"
+      ],
+      "project": "tamasha"
+    }
+  ],
+  "projects": [
+    {
+      "id": "scorka",
+      "name": "Scorka",
+      "type": "Own product",
+      "featured": true,
+      "tagline": "Local cricket, scored ball by ball",
+      "role": "Co-founder · Backend & infrastructure",
+      "period": "2026",
+      "description": "Most local cricket in Pakistan is still scored on paper, so players have no records, rankings or live scores. Scorka lets anyone score a match ball by ball on their phone, run tournaments and build a player record over time.",
+      "tags": [
+        "Spring Boot",
+        "MySQL",
+        "Redis",
+        "JWT",
+        "Nginx",
+        "Linux",
+        "React Native"
+      ],
+      "image": "images/scorka.jpg",
+      "link": "https://scorka.app",
+      "github": "",
+      "stats": [
+        {
+          "value": 519,
+          "suffix": "",
+          "label": "Automated backend tests"
+        },
+        {
+          "value": 153,
+          "suffix": "",
+          "label": "QA test cases in release testing"
+        },
+        {
+          "value": 0,
+          "suffix": "",
+          "label": "Crashes found by QA"
+        }
+      ],
+      "sections": [
+        {
+          "title": "The problem",
+          "body": "Local cricket is played every weekend in towns and villages across Pakistan, but it is scored in notebooks. Scores get lost, tournaments are organised over WhatsApp, and a good player has nothing to show for years of matches."
+        },
+        {
+          "title": "What I built",
+          "body": "I designed the database and built the whole backend: a Spring Boot REST API behind an Android app.",
+          "points": [
+            "Ball-by-ball scoring: scorecards, run rates and bowling figures come from the record of every ball.",
+            "Tournaments with teams, fixtures and live points tables.",
+            "Player rankings by village and district, built from match data.",
+            "Phone-number login with OTP over SMS, and JWT authentication.",
+            "Teams, invites, join requests and in-app notifications."
+          ]
+        },
+        {
+          "title": "Architecture",
+          "body": "The Android app (React Native) talks to a Spring Boot API. MySQL stores matches down to every ball, Redis holds short-lived data such as login codes, and Nginx sits in front of the API and serves the website.",
+          "flow": [
+            "Android app",
+            "Nginx",
+            "Spring Boot API",
+            "MySQL · Redis"
+          ]
+        },
+        {
+          "title": "A security flaw I caught",
+          "body": "A first design for team join requests stored them in the same table as captain invites. Because invites are accepted by the invited player, a player could have accepted their own request and joined any team. I moved join requests to their own table, let only the captain accept them, and covered every case with tests before release."
+        },
+        {
+          "title": "Quality and shipping",
+          "points": [
+            "519 automated backend tests.",
+            "An independent QA engineer ran 153 test cases on a real device: the scoring maths was verified ball by ball and the app had 0 crashes.",
+            "Running in production on a Linux server, with verified Android App Links so shared scorecards open straight in the app.",
+            "Released to testers on Google Play."
+          ]
+        },
+        {
+          "title": "Team",
+          "body": "I own the backend, database, server and deployment. The mobile app was built with my partner Fahad."
+        }
+      ]
+    },
+    {
+      "id": "tamasha",
+      "name": "Tamasha",
+      "type": "Company project",
+      "featured": true,
+      "tagline": "Video streaming platform: shows, movies, live TV and live sports",
+      "role": "Backend Engineer at Mercurial Minds",
+      "period": "Jan 2025 – Present",
+      "description": "Tamasha is a video streaming platform built as a set of microservices. I work on its backend: designing new APIs and making existing ones faster.",
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "Microservices",
+        "SQL",
+        "Query optimisation"
+      ],
+      "image": "images/tamasha.jpg",
+      "link": "https://tamashaweb.com",
+      "github": "",
+      "note": "I work on Tamasha as a backend engineer at Mercurial Minds. Its code and internal details are confidential, so this page describes my role only.",
+      "sections": [
+        {
+          "title": "Where I work",
+          "body": "The platform is split into microservices. I have worked across the user, content and live streaming services, among others.",
+          "flow": [
+            "Web & mobile apps",
+            "User · Content · Live · … services",
+            "Databases"
+          ]
+        },
+        {
+          "title": "Designing new APIs",
+          "points": [
+            "Designed the architecture of new APIs and implemented them end to end."
+          ]
+        },
+        {
+          "title": "Making slow APIs fast",
+          "body": "Some existing APIs had high response times. I profiled them, found the cause and fixed it at the source.",
+          "points": [
+            "Found and resolved N+1 query problems.",
+            "Added the right database indexes.",
+            "Rewrote expensive queries to cut database load and latency."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "food-api",
+      "name": "Food Ordering API",
+      "type": "Personal project",
+      "featured": false,
+      "tagline": "REST backend for a food ordering app",
+      "role": "Solo project",
+      "period": "2024",
+      "description": "Backend API for a food ordering app, handling user authentication, restaurants, food items and order processing.",
+      "tags": [
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "JWT"
+      ],
+      "image": "",
+      "link": "",
+      "github": "https://github.com/danish223/Food-App",
+      "sections": [
+        {
+          "title": "What it does",
+          "points": [
+            "Sign-up and login with JWT, passwords hashed with bcrypt.",
+            "Middleware-protected routes for users, restaurants, categories, food items and orders.",
+            "MongoDB data models with Mongoose."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blog-api",
+      "name": "Blog API",
+      "type": "Personal project",
+      "featured": false,
+      "tagline": "REST API for a blogging platform",
+      "role": "Solo project",
+      "period": "2024",
+      "description": "A REST API for a blogging platform: user accounts with secure login, posts, and validated requests.",
+      "tags": [
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "JWT"
+      ],
+      "image": "",
+      "link": "",
+      "github": "https://github.com/danish223/BlogApp",
+      "sections": [
+        {
+          "title": "What it does",
+          "points": [
+            "User registration and login with JWT and bcrypt.",
+            "Create, read, update and delete blog posts.",
+            "Input validation with express-validator."
+          ]
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "group": "Backend",
+      "items": [
+        "Java",
+        "Spring Boot",
+        "Spring Data JPA / Hibernate",
+        "REST API design",
+        "Microservices",
+        "Node.js"
+      ]
+    },
+    {
+      "group": "Data",
+      "items": [
+        "MySQL",
+        "MongoDB",
+        "Query optimisation",
+        "Indexing",
+        "Redis"
+      ]
+    },
+    {
+      "group": "Infrastructure",
+      "items": [
+        "Linux",
+        "Nginx",
+        "Git",
+        "CI / testing"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "BS Software Engineering",
+      "school": "University Institute of Information Technology (UIIT), PMAS Arid Agriculture University, Rawalpindi",
+      "period": ""
+    }
+  ],
+  "certifications": []
+}

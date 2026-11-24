@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project · Danish Khan</title>
+  <meta name="theme-color" content="#07090f">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307090f'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial' font-weight='700' font-size='30' fill='%232dd4bf'%3EDK%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="progress"></div>
+  <div id="app"></div>
+  <script src="site.js"></script>
+  <script>
+    // One page for every project: project.html?p=<id from content.json>
+    const { esc, has, ext, icon, tags, pts, backdrop, typeClass, nav, footer, stats } = Site;
+
+    function render(c) {
+      const list = c.projects || [];
+      const id = new URLSearchParams(location.search).get("p");
+      const i = Math.max(0, list.findIndex((p) => p.id === id));
+      const p = list[i];
+      if (!p) { location.replace("index.html"); return; }
+      const next = list.length > 1 ? list[(i + 1) % list.length] : null;
+      document.title = `${p.name} · ${c.name}`;
+
+      const meta = [["Role", p.role], ["When", p.period], ["Type", p.type]].filter(([, v]) => v);
+      const links = [
+        p.link && `<a class="btn primary" href="${esc(p.link)}" ${ext}>Visit ${esc(p.name)}${icon.arrow}</a>`,
+        p.github && `<a class="btn" href="${esc(p.github)}" ${ext}>${icon.gh}Source code</a>`,
+      ].filter(Boolean).join("");
+
+      const flow = (f) => has(f) ? `<div class="flow">${f.map((x, k) => `${k ? '<span class="arrow"></span>' : ""}<span class="node">${esc(x)}</span>`).join("")}</div>` : "";
+      const sections = (p.sections || []).map((s, k) => `
+        <div class="cs-sec reveal">
+          <div><span class="sec-num mono">0${k + 1} //</span><h2>${esc(s.title)}</h2></div>
+          <div>${s.body ? `<p>${esc(s.body)}</p>` : ""}${pts(s.points)}${flow(s.flow)}</div>
+        </div>`).join("");
+
+      document.getElementById("app").innerHTML = `
+        ${nav(c, [["index.html#experience", "Experience"], ["index.html#projects", "Projects"], ["index.html#contact", "Contact"]])}
+        <header class="cs-hero">
+          ${backdrop()}
+          <div class="wrap">
+            <a class="back reveal" href="index.html#projects">${icon.left}All projects</a>
+            ${p.type ? `<div class="reveal" style="--d:.05s"><span class="ptype mono ${typeClass(p.type)}">${esc(p.type)}</span></div>` : ""}
+            <h1 class="reveal grad-text" style="--d:.1s">${esc(p.name)}</h1>
+            ${p.tagline ? `<p class="tagline reveal" style="--d:.18s">${esc(p.tagline)}</p>` : ""}
+            ${links ? `<div class="actions reveal" style="--d:.26s">${links}</div>` : ""}
+            ${meta.length ? `<div class="meta reveal" style="--d:.34s">${meta.map(([k, v]) => `<div><span class="mono">${k}</span><b>${esc(v)}</b></div>`).join("")}</div>` : ""}
+          </div>
+        </header>
+        <main class="wrap">
+          ${p.image ? `<div class="cs-shot"><img src="${esc(p.image)}" alt="${esc(p.name)}"></div>` : ""}
+          ${p.note ? `<p class="note reveal">${esc(p.note)}</p>` : ""}
+          <div class="narrow" style="margin:0 auto">
+            <div class="cs-sec reveal" style="border-top:0;padding-top:80px">
+              <div><span class="sec-num mono">00 //</span><h2>Overview</h2></div>
+              <div><p>${esc(p.description)}</p>${tags(p.tags)}</div>
+            </div>
+            ${has(p.stats) ? `<div class="reveal" style="margin-bottom:20px">${stats(p.stats)}</div>` : ""}
+            ${sections}
+          </div>
+          ${next ? `<a class="next reveal" href="project.html?p=${encodeURIComponent(next.id)}"><span class="mono">Next project</span><b>${esc(next.name)}${icon.right}</b></a>` : ""}
+        </main>
+        ${footer(c)}`;
+    }
+
+    Site.load(render);
+  </script>
+</body>
+</html>
