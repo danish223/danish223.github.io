@@ -1,17 +1,17 @@
 {
-  "name": "Danish Khan",
-  "title": "Backend Engineer · Java & Spring Boot",
+  "name": "Muhammad Danish Khan",
+  "title": "Backend Developer · Java (Spring Boot) · Node.js",
   "roles": [
-    "Backend Engineer",
-    "Java & Spring Boot Developer",
+    "Backend Developer",
+    "Java & Spring Boot Engineer",
     "API Performance Optimiser",
-    "Microservices Builder"
+    "Node.js Developer"
   ],
-  "location": "Rawalpindi, Pakistan",
-  "summary": "I build and optimise backend systems. At Mercurial Minds I work on Tamasha, a video streaming platform built as microservices, designing new APIs and making slow ones fast. Outside work I co-founded Scorka, a live cricket scoring app that I took from database design to production.",
+  "location": "Islamabad, Pakistan",
+  "summary": "Backend developer with 2+ years of experience building and scaling high-traffic REST APIs in Java (Spring Boot) and Node.js. Strongest in performance work: Redis caching, native SQL tuning and async processing. I cut critical API latency from 900ms+ to ~70ms on Tamasha, a live streaming platform used by millions during peak cricket events, and co-founded Scorka, a live cricket scoring platform I built end to end.",
   "email": "danish99223@gmail.com",
   "github": "https://github.com/danish223",
-  "linkedin": "",
+  "linkedin": "https://www.linkedin.com/in/muhammaddanishkhann",
   "cv": "",
   "githubActivity": true,
   "interests": [
@@ -22,20 +22,58 @@
   "experience": [
     {
       "company": "Mercurial Minds",
-      "role": "Backend Engineer (Java, Spring Boot)",
-      "period": "Jan 2025 – Present",
-      "description": "Backend engineer on Tamasha, a video streaming platform with shows, movies, live TV and live sports, built as a set of microservices.",
+      "role": "Backend Developer (Executive)",
+      "period": "Sept 2025 – Present",
+      "location": "Islamabad",
+      "description": "Backend developer on Tamasha, Pakistan's leading live streaming platform.",
       "points": [
-        "Design and build new APIs across the user, content and live streaming services.",
-        "Make slow APIs fast: profiling, fixing N+1 queries, indexing and query rewrites."
+        "Engineered and optimised REST APIs serving 5M+ peak concurrent users during high-traffic events such as India–Pakistan cricket matches.",
+        "Cut critical API response times from 900ms+ to ~70ms (~92%) by profiling with JProfiler and JMeter, adding Redis caching and rewriting ORM queries as optimised native SQL.",
+        "Integrated RabbitMQ for asynchronous event processing, raising throughput and decoupling core services under peak load.",
+        "Delivered backend features across the Trivia, User, Subscription, Content and Live modules, built for high availability and horizontal scalability."
       ],
       "tags": [
         "Java",
         "Spring Boot",
-        "Microservices",
-        "SQL"
+        "Redis",
+        "RabbitMQ",
+        "MySQL",
+        "JProfiler",
+        "JMeter"
       ],
       "project": "tamasha"
+    },
+    {
+      "company": "Mercurial Minds",
+      "role": "Backend Developer Intern",
+      "period": "Jan 2025 – Sept 2025",
+      "location": "Islamabad",
+      "description": "",
+      "points": [
+        "Built and tested REST APIs for internal modules in Java and Spring Boot under senior developer mentorship.",
+        "Gained production experience with RabbitMQ, Redis and MySQL, and took part in profiling sessions that found and fixed slow queries."
+      ],
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "RabbitMQ",
+        "Redis",
+        "MySQL"
+      ]
+    },
+    {
+      "company": "Switch Communication",
+      "role": "Game Developer",
+      "period": "May 2023 – Dec 2023",
+      "location": "",
+      "description": "",
+      "points": [
+        "Built 2D platformer games from scratch in Construct 3, owning the game logic: player mechanics, enemy behaviour, collision systems and level progression."
+      ],
+      "tags": [
+        "Construct 3",
+        "Game logic"
+      ]
     }
   ],
   "projects": [
@@ -44,17 +82,17 @@
       "name": "Scorka",
       "type": "Own product",
       "featured": true,
-      "tagline": "Local cricket, scored ball by ball",
+      "tagline": "Cricket tournament & live scoring platform",
       "role": "Co-founder · Backend & infrastructure",
       "period": "2026",
       "description": "Most local cricket in Pakistan is still scored on paper, so players have no records, rankings or live scores. Scorka lets anyone score a match ball by ball on their phone, run tournaments and build a player record over time.",
       "tags": [
-        "Spring Boot",
+        "Java 21",
+        "Spring Boot 3",
         "MySQL",
         "Redis",
         "JWT",
-        "Nginx",
-        "Linux",
+        "Docker",
         "React Native"
       ],
       "image": "images/scorka.jpg",
@@ -62,19 +100,19 @@
       "github": "",
       "stats": [
         {
+          "value": 83,
+          "suffix": "",
+          "label": "REST endpoints"
+        },
+        {
+          "value": 23,
+          "suffix": "",
+          "label": "JPA entities"
+        },
+        {
           "value": 519,
           "suffix": "",
           "label": "Automated backend tests"
-        },
-        {
-          "value": 153,
-          "suffix": "",
-          "label": "QA test cases in release testing"
-        },
-        {
-          "value": 0,
-          "suffix": "",
-          "label": "Crashes found by QA"
         }
       ],
       "sections": [
@@ -84,23 +122,45 @@
         },
         {
           "title": "What I built",
-          "body": "I designed the database and built the whole backend: a Spring Boot REST API behind an Android app.",
+          "body": "I architected and built the backend end to end: 23 JPA entities and 83 REST endpoints across auth, team, tournament, series and match modules, supporting league, round-robin and pool-group formats.",
           "points": [
-            "Ball-by-ball scoring: scorecards, run rates and bowling figures come from the record of every ball.",
             "Tournaments with teams, fixtures and live points tables.",
             "Player rankings by village and district, built from match data.",
-            "Phone-number login with OTP over SMS, and JWT authentication.",
             "Teams, invites, join requests and in-app notifications."
           ]
         },
         {
+          "title": "Ball-by-ball scoring engine",
+          "body": "Every ball is stored as an event, and everything else is computed from those events.",
+          "points": [
+            "Handles legal deliveries, extras (wide, no-ball, bye, leg-bye), seven dismissal types, over sequencing and undo-last-ball.",
+            "Batting, bowling, fielding and team stats are recomputed from raw ball events into leaderboards."
+          ]
+        },
+        {
+          "title": "Reliable on bad networks",
+          "body": "Matches are scored at the ground, where the internet is often weak.",
+          "points": [
+            "Idempotent ball recording keyed on a client-generated event ID, so a retried request never records a ball twice.",
+            "A sync queue with retry tracking for offline-first clients."
+          ]
+        },
+        {
           "title": "Architecture",
-          "body": "The Android app (React Native) talks to a Spring Boot API. MySQL stores matches down to every ball, Redis holds short-lived data such as login codes, and Nginx sits in front of the API and serves the website.",
+          "body": "The Android app (React Native) talks to a Spring Boot API. MySQL reads and writes go through separate datasources, each with its own HikariCP pool, entity manager and transaction manager, tuned for read-heavy scorecard traffic. Redis holds login codes with a TTL.",
           "flow": [
             "Android app",
             "Nginx",
             "Spring Boot API",
-            "MySQL · Redis"
+            "MySQL (read / write) · Redis"
+          ]
+        },
+        {
+          "title": "Auth and errors",
+          "points": [
+            "Redis-backed OTP login with TTL, and JWT access and refresh tokens behind a custom auth filter.",
+            "45 typed exceptions behind a global error mapper.",
+            "OpenAPI-documented endpoints."
           ]
         },
         {
@@ -127,16 +187,16 @@
       "name": "Tamasha",
       "type": "Company project",
       "featured": true,
-      "tagline": "Video streaming platform: shows, movies, live TV and live sports",
-      "role": "Backend Engineer at Mercurial Minds",
+      "tagline": "Pakistan's leading live streaming & entertainment platform",
+      "role": "Backend Developer at Mercurial Minds",
       "period": "Jan 2025 – Present",
-      "description": "Tamasha is a video streaming platform built as a set of microservices. I work on its backend: designing new APIs and making existing ones faster.",
+      "description": "Tamasha streams shows, movies, live TV and live sports, peaking at 5M+ concurrent users during major cricket events. I work on its backend: REST APIs, the Redis caching layer, RabbitMQ async processing and live streaming.",
       "tags": [
-        "Java",
         "Spring Boot",
-        "Microservices",
-        "SQL",
-        "Query optimisation"
+        "MySQL",
+        "Redis",
+        "RabbitMQ",
+        "Docker"
       ],
       "image": "images/tamasha.jpg",
       "link": "https://tamashaweb.com",
@@ -145,11 +205,28 @@
       "sections": [
         {
           "title": "Where I work",
-          "body": "The platform is split into microservices. I have worked across the user, content and live streaming services, among others.",
+          "body": "The backend is split into modules. I have delivered features across the Trivia, User, Subscription, Content and Live modules, built for high availability and horizontal scalability.",
           "flow": [
             "Web & mobile apps",
-            "User · Content · Live · … services",
-            "Databases"
+            "Trivia · User · Subscription · Content · Live",
+            "Redis · RabbitMQ · MySQL"
+          ]
+        },
+        {
+          "title": "900ms to 70ms",
+          "body": "Some critical APIs were taking more than 900ms. I profiled them with JProfiler and load-tested them with JMeter, then fixed the causes.",
+          "points": [
+            "Added Redis caching strategies for hot data.",
+            "Rewrote slow ORM queries as optimised native SQL.",
+            "Resolved N+1 query problems and added the right indexes.",
+            "Result: ~70ms, about 92% faster, on a platform that peaks at 5M+ concurrent users."
+          ]
+        },
+        {
+          "title": "Async processing",
+          "points": [
+            "Integrated RabbitMQ for asynchronous event processing.",
+            "Raised throughput and decoupled core services under peak load."
           ]
         },
         {
@@ -157,15 +234,23 @@
           "points": [
             "Designed the architecture of new APIs and implemented them end to end."
           ]
+        }
+      ],
+      "stats": [
+        {
+          "value": 5,
+          "suffix": "M+",
+          "label": "Peak concurrent users"
         },
         {
-          "title": "Making slow APIs fast",
-          "body": "Some existing APIs had high response times. I profiled them, found the cause and fixed it at the source.",
-          "points": [
-            "Found and resolved N+1 query problems.",
-            "Added the right database indexes.",
-            "Rewrote expensive queries to cut database load and latency."
-          ]
+          "value": 900,
+          "suffix": "ms+",
+          "label": "Critical API latency before"
+        },
+        {
+          "value": 70,
+          "suffix": "ms",
+          "label": "After my optimisation (~92% faster)"
         }
       ]
     },
@@ -232,31 +317,61 @@
     {
       "group": "Backend",
       "items": [
-        "Java",
-        "Spring Boot",
+        "Java 21",
+        "Spring Boot 3",
         "Spring Data JPA / Hibernate",
+        "Node.js (Express)",
         "REST API design",
-        "Microservices",
-        "Node.js"
+        "JWT / OTP auth"
       ]
     },
     {
-      "group": "Data",
+      "group": "Data & Messaging",
       "items": [
         "MySQL",
         "MongoDB",
-        "Query optimisation",
-        "Indexing",
-        "Redis"
+        "Redis",
+        "RabbitMQ",
+        "Kafka",
+        "HikariCP",
+        "Native SQL tuning"
       ]
     },
     {
-      "group": "Infrastructure",
+      "group": "DevOps & Tooling",
       "items": [
+        "Docker",
+        "Kubernetes",
         "Linux",
-        "Nginx",
         "Git",
-        "CI / testing"
+        "Maven",
+        "Actuator",
+        "OpenAPI / Swagger"
+      ]
+    },
+    {
+      "group": "Performance",
+      "items": [
+        "JMeter",
+        "JProfiler",
+        "Query optimisation",
+        "Caching"
+      ]
+    },
+    {
+      "group": "Languages",
+      "items": [
+        "Java",
+        "JavaScript",
+        "SQL"
+      ]
+    },
+    {
+      "group": "Practices",
+      "items": [
+        "Agile / Scrum",
+        "Jira",
+        "Bitbucket"
       ]
     }
   ],
@@ -267,5 +382,10 @@
       "period": ""
     }
   ],
-  "certifications": []
+  "certifications": [],
+  "stack": [
+    "Java",
+    "Spring Boot",
+    "Redis"
+  ]
 }
